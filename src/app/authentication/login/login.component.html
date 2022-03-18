@@ -1,0 +1,151 @@
+<!--Login Page Starts-->
+<section id="login">
+  <form [formGroup]="loginForm">
+    <div class="container-fluid">
+      <div class="row full-height-vh m-0">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body login-img">
+                <div class="row m-0">
+                  <div
+                    class="col-lg-6 d-lg-block d-none py-2 px-3 text-center align-middle"
+                  >
+                    <img
+                      src="../../../assets/img/login.png"
+                      alt=""
+                      class="img-fluid mt-5"
+                      width="400"
+                      height="230"
+                    />
+                  </div>
+                  <div class="col-lg-6 col-md-12 bg-white px-4 pt-3">
+                    <h4 class="card-title mb-2">{{ "Log in" }}</h4>
+                    <p class="card-text mb-3">
+                      {{ "Hello you can authenticate" }}.
+                    </p>
+
+                    <div class="form-group">
+                      <label for="inputEmail">{{ "E-mail" }}</label>
+                      <input
+                        id="inputEmail"
+                        (keydown.enter)="onSubmit(); $event.preventDefault()"
+                        type="email"
+                        class="form-control"
+                        placeholder="{{ 'E-mail' }}"
+                        formControlName="email"
+                        [ngClass]="{
+                          'error-input':
+                            loginForm.get('email').errors &&
+                            (loginForm.get('email').touched ||
+                              loginForm.get('email').dirty ||
+                              submitted)
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          loginForm.get('email').invalid &&
+                          (loginForm.get('email').dirty ||
+                            loginForm.get('email').touched ||
+                            submitted)
+                        "
+                      >
+                        <small
+                          class="form-text text-muted danger"
+                          *ngIf="loginForm.get('email').errors.required"
+                        >
+                          {{ "This field is required" }}
+                        </small>
+                        <small
+                          class="form-text text-muted danger"
+                          *ngIf="loginForm.get('email').errors.pattern"
+                        >
+                          {{ "Please enter a valid email" }}!
+                        </small>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputMdp">{{ "Password" }}</label>
+                      <input
+                        id="inputMdp"
+                        (keydown.enter)="onSubmit(); $event.preventDefault()"
+                        type="password"
+                        class="form-control"
+                        placeholder="{{ 'Password' }}"
+                        formControlName="password"
+                        [ngClass]="{
+                          'error-input':
+                            loginForm.get('password').errors &&
+                            (loginForm.get('password').touched ||
+                              loginForm.get('password').dirty ||
+                              submitted)
+                        }"
+                      />
+                      <div
+                        *ngIf="
+                          loginForm.get('password').invalid &&
+                          (loginForm.get('password').dirty ||
+                            loginForm.get('password').touched ||
+                            submitted)
+                        "
+                      >
+                        <small
+                          class="form-text text-muted danger"
+                          *ngIf="loginForm.get('password').errors.required"
+                        >
+                          {{ "This field is required" }}
+                        </small>
+                        <small
+                          class="form-text text-muted danger"
+                          *ngIf="
+                            loginForm.get('password').errors.minlength ||
+                            loginForm.get('password').errors.maxlength
+                          "
+                        >
+                          {{ "Please enter a valid password" }}!
+                        </small>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end mb-3">
+                      <div class="forgot-password-option">
+                        <a
+                          (click)="onForgotPassword()"
+                          class="text-decoration-none text-primary"
+                          >{{ "Forgot your password" }} ?</a
+                        >
+                      </div>
+                    </div>
+                    <div class="fg-actions d-flex justify-content-between">
+                      <div class="login-btn">
+                        <button
+                          class="btn btn-outline-primary"
+                          (click)="onRegister()"
+                        >
+                          <a class="text-decoration-none">{{ "Register" }}</a>
+                        </button>
+                      </div>
+                      <div class="recover-pass">
+                        <button
+                          class="btn btn-primary"
+                          id="btn-login"
+                          (click)="onSubmit()"
+                          [disabled]="loading"
+                        >
+                          <span
+                            class="spinner-border spinner-border-sm"
+                            *ngIf="loading"
+                          ></span>
+                          {{ "Login" }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>

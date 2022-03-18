@@ -1,0 +1,206 @@
+<!--Extended Table starts-->
+<section id="extended">
+  <div class="row text-left">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Cooperation requests list</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body" *ngIf="cooperationsList">
+            <form class="form">
+              <div class="form-body">
+                <div class="row">
+                  <!-- Filter by sender email starts -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="filter1"
+                        >{{ "Filter by sender email" | translate }}
+                        {{ "?" | translate }}</label
+                      ><span class="ft-filter"></span>
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          [(ngModel)]="filterBySenderEmail"
+                          name="nom"
+                          (keyup)="filterBySenderEmailFn()"
+                          class="form-control"
+                          id="filter1"
+                          placeholder="{{
+                            'Enter sender email here' | translate
+                          }}"
+                          aria-describedby="button-addon2"
+                        />
+                        <div class="form-control-position">
+                          <i class="ft-search info"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Filter by sender email ends -->
+
+                  <!-- Filter by receiver email starts -->
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label for="filter2"
+                        >{{ "Filter by receiver email" | translate }}
+                        {{ "?" | translate }}</label
+                      ><span class="ft-filter"></span>
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          [(ngModel)]="filterByReceiverEmail"
+                          name="nom"
+                          (keyup)="filterByReceiverEmailFn()"
+                          class="form-control"
+                          id="filter2"
+                          placeholder="{{
+                            'Enter receiver email here' | translate
+                          }}"
+                          aria-describedby="button-addon2"
+                        />
+                        <div class="form-control-position">
+                          <i class="ft-search info"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Filter by receiver email ends -->
+
+                  <!-- Filter by status starts -->
+                  <div class="col-lg-4">
+                    <fieldset class="form-group">
+                      <label for="basicSelect2"
+                        >{{ "Filter by status" | translate }}
+                        {{ "?" | translate }} </label
+                      ><span class="ft-filter"></span>
+                      <select
+                        class="form-control"
+                        id="basicSelect2"
+                        (change)="changeStatus($event.target.value)"
+                      >
+                        <option value="0">{{ "All" | translate }}</option>
+                        <option value="1">{{ "Pending" | translate }}</option>
+                        <option value="2">{{ "Rejected" | translate }}</option>
+                        <option value="3">{{ "Accepted" | translate }}</option>
+                        <option value="4">{{ "Expired" | translate }}</option>
+                      </select>
+                    </fieldset>
+                  </div>
+                  <!-- Filter by status ends -->
+                </div>
+              </div>
+            </form>
+            <table class="table table-responsive-sm">
+              <thead>
+                <tr>
+                  <th>Sender</th>
+                  <th>Receiver</th>
+                  <th>Request For</th>
+                  <th>Created At</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cooperation of cooperationsList">
+                  <td>{{ cooperation.sender.email }}</td>
+                  <td>{{ cooperation.receiver.email }}</td>
+                  <td>{{ cooperation.requestType }}</td>
+                  <td>{{ cooperation.createdAt | date: "medium" }}</td>
+                  <td>
+                    <span
+                      *ngIf="cooperation.requestStatus == 'Pending'"
+                      class="badge badge-warning"
+                      >{{ cooperation.requestStatus }}</span
+                    >
+                    <span
+                      *ngIf="cooperation.requestStatus == 'Accepted'"
+                      class="badge badge-success"
+                      >{{ cooperation.requestStatus }}</span
+                    >
+                    <span
+                      *ngIf="cooperation.requestStatus == 'Rejected'"
+                      class="badge badge-danger"
+                      >{{ cooperation.requestStatus }}</span
+                    >
+                  </td>
+
+                  <td>
+                    <div class="btn-group mr-2">
+                      <a
+                        class="btn btn-sm btn-danger"
+                        id="afficher-button"
+                        (click)="detailsCooperationRequest(cooperation._id)"
+                        ><i class="ft-eye" style="color: white"></i
+                      ></a>
+                      <!-- <span ngbDropdown>
+                        <button
+                          class="btn btn-sm btn-secondary"
+                          id="dropdownBasic2"
+                          ngbDropdownToggle
+                        ></button>
+                        <div
+                          ngbDropdownMenu
+                          class="dropdown-menu-right"
+                          aria-labelledby="dropdownBasic2"
+                          style="text-align: center"
+                        >
+                          <button
+                            class="dropdown-item"
+                            id="modifier-button"
+                            placement="top"
+                            (click)="updateUser(user._id)"
+                          >
+                            <i class="ft-edit mr-2"></i>
+                            <span>Update</span>
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            id="delete-button"
+                            placement="top"
+                            (click)="deleteUser(user._id)"
+                          >
+                            <i class="ft-trash mr-2"></i>
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </span> -->
+                    </div>
+                  </td>
+                </tr>
+                <div
+                  class="col-md-12 mt-2 center praticien-alert"
+                  *ngIf="cooperationsList?.length === 0"
+                >
+                  <h5>No cooperations found</h5>
+                </div>
+                <tr class="table-active">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <strong>{{ totalItems }} total</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <ngb-pagination
+              *ngIf="cooperationsList?.length != 0"
+              class="d-flex justify-content-end"
+              [collectionSize]="totalItems"
+              [(page)]="page"
+              (pageChange)="onPaginatorChange($event)"
+              [pageSize]="itemsPerPage"
+              [boundaryLinks]="true"
+            >
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

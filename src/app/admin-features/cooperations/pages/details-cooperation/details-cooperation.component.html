@@ -1,0 +1,148 @@
+<section id="basic-form-layouts">
+    <div class="row text-left">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h4 class="card-title" id="bordered-layout-basic-form">
+                        Request details
+                    </h4>
+                    <a class="btn btn-raised btn-round mr-1 btn-info shadow-z-2" (click)="back()"><i class="ft-arrow-left pr-1"></i>Back</a
+          >
+        </div>
+        <!-- Product details starts -->
+        <div class="row text-left">
+          <div class="container-fluid" *ngIf="product">
+            <div class="card">
+              <div class="row product-page-main card-body">
+                <div class="col-xl-4">
+                  <section>
+                    <!-- <ks-carousel [id]="100" [images]="imagesRect"></ks-carousel> -->
+                    <ks-carousel
+                      *ngIf="imagesRect.length != 0"
+                      [id]="200"
+                      [images]="imagesRect"
+                      [dotsConfig]="{ visible: false }"
+                      [carouselConfig]="{
+                        maxHeight: '600px',
+                        keyboardEnable: true
+                      }"
+                      [previewConfig]="{ maxHeight: '125px' }"
+                    >
+                    </ks-carousel>
+                  </section>
+                </div>
+                <div class="col-xl-8">
+                  <div class="product-page-details product-right mb-0">
+                    <h4 class="brand">
+                      <strong>brand :</strong> {{ product.brand }}
+                    </h4>
+                    <h2>{{ product.name }}</h2>
+                    <hr />
+                    <h5><strong>category :</strong> {{ product.category }}</h5>
+                    <h6 class="product-title">product details</h6>
+                    <p class="mb-0">
+                      {{ product.description }}
+                    </p>
+                    <div class="product-price digits mt-2">
+                      <h3>${{ product.price }}</h3>
+                    </div>
+                    <ul class="color-variant">
+                      <li class="bg-light0"></li>
+                      <li class="bg-light1"></li>
+                      <li class="bg-light2"></li>
+                    </ul>
+                    <hr />
+
+                    <h6 class="product-title size-text">
+                      select size
+                      <span class="pull-right">
+                        <a
+                          data-toggle="modal"
+                          (click)="open(content)"
+                          class="font-primary"
+                          >size chart</a
+                        >
+                      </span>
+                    </h6>
+                    <ng-template #content let-modal>
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                          Sheer Straight Kurta
+                        </h5>
+                        <button
+                          type="button"
+                          class="close"
+                          aria-label="Close"
+                          (click)="modal.dismiss('Cross click')"
+                        >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <img
+                          src="assets/img/size-chart.jpg"
+                          alt=""
+                          class="img-fluid blur-up lazyloaded"
+                        />
+                      </div>
+                    </ng-template>
+                    <div class="size-box">
+                      <ul>
+                        <li class="ng-star-inserted">
+                          <a href="javascript:void(0)">s</a>
+                    </li>
+                    <li class="ng-star-inserted">
+                        <a href="javascript:void(0)">m</a>
+                    </li>
+                    <li class="ng-star-inserted">
+                        <a href="javascript:void(0)">l</a>
+                    </li>
+                    <li class="ng-star-inserted">
+                        <a href="javascript:void(0)">xl</a>
+                    </li>
+                    </ul>
+                </div>
+                <div class="add-product-form">
+                    <h6 class="product-title">quantity</h6>
+                    <div class="qty-box1">
+                        <div class="input-group">
+                            <i class="fa fa-minus btnGtr1"></i>
+                            <input class="touchspin1 text-center" name="counter" value="{{ product.countInStock }}" type="text" disabled />
+                            <i class="fa fa-plus btnLess1"></i>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <app-countdown [date]="'Apr 21 2022'"></app-countdown>
+
+                <div class="m-t-15">
+                    <button class="btn button-primary m-r-10" type="button">
+                        Add To Cart
+                      </button>
+                    <button class="btn button-secondary" type="button">
+                        Buy Now
+                      </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <!-- Product details ends -->
+
+    <!-- Sender and requester details starts -->
+    <div class="row text-left">
+        <div class="col-md-6">
+            <app-user-info type="Sender" [firstName]="sender.firstName" [lastName]="sender.lastName" [phoneNumber]="sender.phoneNumber" [address]="sender.address" [birthday]="sender.birthday" [email]="sender.email" [role]="sender.role" [status]="sender.status" [imageUrl]="senderUrlImage"></app-user-info>
+        </div>
+        <div class="col-md-6">
+            <app-user-info type="Receiver" [firstName]="receiver.firstName" [lastName]="receiver.lastName" [phoneNumber]="receiver.phoneNumber" [address]="receiver.address" [birthday]="receiver.birthday" [email]="receiver.email" [role]="receiver.role" [status]="receiver.status"
+                [imageUrl]="receiverUrlImage"></app-user-info>
+        </div>
+    </div>
+    <!-- Sender and requester details ends -->
+    </div>
+    </div>
+    </div>
+</section>

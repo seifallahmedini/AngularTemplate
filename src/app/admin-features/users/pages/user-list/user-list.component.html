@@ -1,0 +1,233 @@
+<!--Extended Table starts-->
+<section id="extended">
+  <div class="row text-left">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Users list</h4>
+          <div class="text-right">
+            <a
+              class="btn btn-raised btn-round mr-1 btn-info shadow-z-2"
+              id="ajouter-button"
+              (click)="addUser()"
+              ><i class="ft-plus"></i>Add user</a
+            >
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <form class="form">
+              <div class="form-body">
+                <div class="row">
+                  <!-- Filter by firstname starts -->
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="filter1"
+                        >{{ "Filter by firstname" | translate }}
+                        {{ "?" | translate }}</label
+                      ><span class="ft-filter"></span>
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          [(ngModel)]="filterByFirstName"
+                          name="firstName"
+                          (keyup)="filterByFirstNameFn()"
+                          class="form-control"
+                          id="filter1"
+                          placeholder="{{ 'Enter firstname here' | translate }}"
+                          aria-describedby="button-addon2"
+                        />
+                        <div class="form-control-position">
+                          <i class="ft-search info"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Filter by firstname ends -->
+
+                  <!-- Filter by lastname starts -->
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="filter2"
+                        >{{ "Filter by lastname" | translate }}
+                        {{ "?" | translate }}</label
+                      ><span class="ft-filter"></span>
+                      <div class="position-relative has-icon-left">
+                        <input
+                          type="text"
+                          [(ngModel)]="filterByLastName"
+                          name="lastName"
+                          (keyup)="filterByLastNameFn()"
+                          class="form-control"
+                          id="filter2"
+                          placeholder="{{ 'Enter lastname here' | translate }}"
+                          aria-describedby="button-addon2"
+                        />
+                        <div class="form-control-position">
+                          <i class="ft-search info"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Filter by lastname ends -->
+
+                  <!-- Filter by role starts -->
+                  <div class="col-lg-3">
+                    <fieldset class="form-group">
+                      <label for="basicSelect2"
+                        >{{ "Filter by role" | translate }}
+                        {{ "?" | translate }} </label
+                      ><span class="ft-filter"></span>
+                      <select
+                        class="form-control"
+                        id="basicSelect2"
+                        (change)="changeRole($event.target.value)"
+                      >
+                        <option value="0">{{ "All" | translate }}</option>
+                        <option value="1">{{ "Customer" | translate }}</option>
+                        <option value="2">{{ "Admin" | translate }}</option>
+                        <option value="3">{{ "Vendor" | translate }}</option>
+                      </select>
+                    </fieldset>
+                  </div>
+                  <!-- Filter by role ends -->
+
+                  <!-- Filter by status starts -->
+                  <div class="col-lg-3">
+                    <fieldset class="form-group">
+                      <label for="basicSelect2"
+                        >{{ "Filter by status" | translate }}
+                        {{ "?" | translate }} </label
+                      ><span class="ft-filter"></span>
+                      <select
+                        class="form-control"
+                        id="basicSelect2"
+                        (change)="changeStatus($event.target.value)"
+                      >
+                        <option value="0">{{ "All" | translate }}</option>
+                        <option value="1">{{ "Active" | translate }}</option>
+                        <option value="2">{{ "InActive" | translate }}</option>
+                      </select>
+                    </fieldset>
+                  </div>
+                  <!-- Filter by status ends -->
+                </div>
+              </div>
+            </form>
+            <table
+              class="table table-responsive-sm"
+              *ngIf="usersList?.length != 0"
+            >
+              <thead>
+                <tr>
+                  <th>First name</th>
+                  <th>Last name</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let user of usersList">
+                  <td>{{ user.firstName }}</td>
+                  <td>{{ user.lastName }}</td>
+                  <td>{{ user.role }}</td>
+                  <td>
+                    <ui-switch
+                      size="small"
+                      [checked]="user.status"
+                      (change)="updateUserStatus(user._id)"
+                    ></ui-switch>
+                  </td>
+                  <td>
+                    <div class="btn-group mr-2">
+                      <a
+                        class="btn btn-sm btn-danger"
+                        id="afficher-button"
+                        (click)="detailsUser(user._id)"
+                        ><i class="ft-eye" style="color: white"></i
+                      ></a>
+                      <span ngbDropdown>
+                        <button
+                          class="btn btn-sm btn-secondary"
+                          id="dropdownBasic2"
+                          ngbDropdownToggle
+                        ></button>
+                        <div
+                          ngbDropdownMenu
+                          class="dropdown-menu-right"
+                          aria-labelledby="dropdownBasic2"
+                          style="text-align: center"
+                        >
+                          <button
+                            class="dropdown-item"
+                            id="modifier-button"
+                            placement="top"
+                            (click)="updateUser(user._id)"
+                          >
+                            <i class="ft-edit mr-2"></i>
+                            <span>Update</span>
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            id="delete-button"
+                            placement="top"
+                            (click)="deleteUser(user._id)"
+                          >
+                            <i class="ft-trash mr-2"></i>
+                            <span>Delete</span>
+                          </button>
+                        </div>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <!-- <div
+                  class="col-md-12 mt-2 center praticien-alert"
+                  *ngIf="usersList?.length === 0"
+                >
+                  <h5>No users found</h5>
+                </div> -->
+                <tr class="table-active">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <strong>{{ totalItems }} total</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div *ngIf="usersList?.length === 0">
+              <div class="row d-flex justify-content-center">
+                <img
+                  class="no-user-found-img"
+                  src="assets/img/user-list/no-user-found.png"
+                  alt="No user found"
+                />
+              </div>
+              <div class="row d-flex justify-content-center">
+                <h1>No user found</h1>
+              </div>
+            </div>
+
+            <ngb-pagination
+              *ngIf="usersList?.length != 0"
+              class="d-flex justify-content-end"
+              [collectionSize]="totalItems"
+              [(page)]="page"
+              (pageChange)="onPaginatorChange($event)"
+              [pageSize]="itemsPerPage"
+              [boundaryLinks]="true"
+            >
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Extended Table Ends-->
+<!--Extended Table starts-->

@@ -1,0 +1,26 @@
+<div class="form-group row" [formGroup]="formGroup">
+  <label class="col-md-3 label-control" [for]="name">
+    {{ label }}
+    <span class="required-input" *ngIf="isRequired()">*</span>
+  </label>
+  <div class="col-md-9">
+    <ng-select
+      [items]="values"
+      [bindLabel]="displayField"
+      [bindValue]="returnValue"
+      [ngClass]="{
+        'is-invalid': isSubmitted && getErrors()
+      }"
+      [formControlName]="name"
+      [id]="name"
+      [placeholder]="placeholder"
+      [disabled]="isDisabled"
+    >
+    </ng-select>
+    <app-validatio-form
+      [isSubmitted]="isSubmitted"
+      [formControlValue]="formControlValue"
+    >
+    </app-validatio-form>
+  </div>
+</div>

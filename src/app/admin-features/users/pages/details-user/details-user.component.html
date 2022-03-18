@@ -1,0 +1,154 @@
+<section id="basic-form-layouts">
+  <div class="row text-left">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header pb-2 d-flex justify-content-between">
+          <h4 class="card-title" id="bordered-layout-basic-form">
+            Details user
+          </h4>
+          <a
+            class="btn btn-raised btn-round mr-1 btn-info shadow-z-2"
+            (click)="back()"
+            ><i class="ft-arrow-left pr-1"></i>Back</a
+          >
+        </div>
+        <div class="card-content">
+          <div class="px-3">
+            <form
+              class="form form-horizontal form-bordered"
+              [formGroup]="userForm"
+            >
+              <div class="form-body">
+                <h4 class="form-section">
+                  <i class="ft-user"></i> Personal Info
+                </h4>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.firstName"
+                  [name]="'firstName'"
+                  [placeholder]="'First Name'"
+                  [label]="'First Name'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.lastName"
+                  [name]="'lastName'"
+                  [placeholder]="'Last Name'"
+                  [label]="'Last Name'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-select
+                  [formGroup]="userForm"
+                  [formControlValue]="f.gender"
+                  [name]="'gender'"
+                  [values]="genderList"
+                  [displayField]="'label'"
+                  [returnValue]="'code'"
+                  [placeholder]="'Select an option'"
+                  [label]="'Gender'"
+                  [isDisabled]="true"
+                >
+                </app-input-select>
+                <app-input-date
+                  [formGroup]="userForm"
+                  [formControlValue]="f.birthday"
+                  [name]="'birthday'"
+                  [dateFormat]="'YYYY-MM-DD'"
+                  [placeholder]="'YYYY-MM-DD'"
+                  [label]="'Date of Birthday'"
+                  [isDisabled]="true"
+                >
+                </app-input-date>
+                <h4 class="form-section">
+                  <i class="ft-user"></i> Account Info
+                </h4>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.email"
+                  [name]="'email'"
+                  [placeholder]="'E-mail'"
+                  [label]="'E-mail'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.userName"
+                  [name]="'userName'"
+                  [placeholder]="'Username'"
+                  [label]="'userName'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-select
+                  [formGroup]="userForm"
+                  [formControlValue]="f.role"
+                  [name]="'role'"
+                  [values]="roleList"
+                  [displayField]="'label'"
+                  [returnValue]="'code'"
+                  [placeholder]="'Select an option'"
+                  [label]="'Role'"
+                  [isDisabled]="true"
+                >
+                </app-input-select>
+                <app-input-switch
+                  [formGroup]="userForm"
+                  [formControlValue]="f.status"
+                  [name]="'status'"
+                  [label]="'Status'"
+                  [isDisabled]="true"
+                >
+                </app-input-switch>
+                <h4 class="form-section">
+                  <i class="ft-mail"></i> Contact Info & Bio
+                </h4>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.address"
+                  [name]="'address'"
+                  [placeholder]="'Address'"
+                  [label]="'Address'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-text
+                  [formGroup]="userForm"
+                  [formControlValue]="f.country"
+                  [name]="'country'"
+                  [placeholder]="'Country'"
+                  [label]="'Country'"
+                  [isDisabled]="true"
+                >
+                </app-input-text>
+                <app-input-number
+                  [formGroup]="userForm"
+                  [formControlValue]="f.phoneNumber"
+                  [minValue]="0"
+                  [name]="'phoneNumber'"
+                  [placeholder]="'Phone Number'"
+                  [label]="'Phone Number'"
+                  [isDisabled]="true"
+                >
+                </app-input-number>
+                <h4 class="form-section"><i class="ft-file-text"></i> Image</h4>
+                <app-input-file
+                  [formGroup]="userForm"
+                  [formControlValue]="f.image"
+                  [name]="'image'"
+                  [label]="'Image'"
+                  [isDisabled]="true"
+                  [isDetails]="true"
+                >
+                </app-input-file>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+<div
+  *ngIf="
+    formControlValue.errors &&
+    (formControlValue.touched || formControlValue.dirty || isSubmitted)
+  "
+>
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.required"
+  >
+    {{ "validation.required" | translate }}.
+  </small>
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.email"
+    >{{ "validation.email" | translate }}</small
+  >
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.minlength"
+    >{{
+      "validation.minlength"
+        | translate: { value: formControlValue.errors.minlength.requiredLength }
+    }}</small
+  >
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.maxlength"
+    >{{
+      "validation.maxlength"
+        | translate: { value: formControlValue.errors.maxlength.requiredLength }
+    }}</small
+  >
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.min"
+    >{{
+      "validation.min" | translate: { value: formControlValue.errors.min.min }
+    }}</small
+  >
+  <small
+    class="form-text text-muted danger"
+    *ngIf="formControlValue.errors.max"
+    >{{
+      "validation.max" | translate: { value: formControlValue.errors.max.max }
+    }}</small
+  >
+</div>

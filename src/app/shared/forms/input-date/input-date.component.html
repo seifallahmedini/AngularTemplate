@@ -1,0 +1,35 @@
+<div class="form-group row">
+  <label class="col-md-3 label-control" [for]="name">
+    {{ label }}
+    <span class="required-input" *ngIf="isRequired()">*</span>
+  </label>
+  <div class="col-md-9">
+    <div class="input-group">
+      <input
+        [(ngModel)]="dateValue"
+        [id]="name"
+        [name]="name"
+        class="form-control"
+        [placeholder]="placeholder ? placeholder : 'YYYY-MM-DD'"
+        ngbDatepicker
+        #d2="ngbDatepicker"
+        [ngClass]="{
+          'error-input': isSubmitted && getErrors()
+        }"
+        (ngModelChange)="onValueChange($event)"
+        [disabled]="isDisabled"
+      />
+      <div class="input-group-append">
+        <div class="input-group-text" (click)="d2.toggle()">
+          <i class="fa fa-calendar" style="cursor: pointer"></i>
+        </div>
+      </div>
+    </div>
+
+    <app-validatio-form
+      [isSubmitted]="isSubmitted"
+      [formControlValue]="formControlValue"
+    >
+    </app-validatio-form>
+  </div>
+</div>

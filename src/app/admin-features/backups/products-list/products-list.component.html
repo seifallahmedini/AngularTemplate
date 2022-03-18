@@ -1,0 +1,173 @@
+<!-- <div class="row"> -->
+<div class="col-md-10 col-lg-10">
+    <form class="form">
+        <div class="form-body">
+            <div class="row">
+                <!-- Filter by product name starts -->
+                <div class="col">
+                    <div class="form-group">
+                        <label for="filter1">{{ "Filter by product name" | translate }}
+              {{ "?" | translate }}</label
+            ><span class="ft-filter"></span>
+            <div class="position-relative has-icon-left">
+              <input
+                type="text"
+                [(ngModel)]="filterByProductName"
+                name="nom"
+                (keyup)="filterByProductNameFn()"
+                class="form-control"
+                id="filter1"
+                placeholder="{{ 'Enter product name here' | translate }}"
+                aria-describedby="button-addon2"
+              />
+              <div class="form-control-position">
+                <i class="ft-search info"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Filter by product name ends -->
+
+        <!-- Filter by status starts -->
+        <div class="col">
+          <fieldset class="form-group">
+            <label for="basicSelect2"
+              >{{ "Filter by status" | translate }}
+              {{ "?" | translate }} </label
+            ><span class="ft-filter"></span>
+            <select
+              class="form-control"
+              id="basicSelect2"
+              (change)="changeStatus($event.target.value)"
+            >
+              <option value="0">{{ "All" | translate }}</option>
+              <option value="1">{{ "Review" | translate }}</option>
+              <option value="2">{{ "Rejected" | translate }}</option>
+              <option value="3">{{ "Approved" | translate }}</option>
+              <option value="4">{{ "Expired" | translate }}</option>
+            </select>
+          </fieldset>
+        </div>
+        <!-- Filter by status ends -->
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="col-md-12 col-lg-12">
+  <div class="container-fluid">
+    <div class="row products-admin ratio_asos">
+      <div class="col-xl-4 col-sm-6" *ngFor="let product of product_list">
+        <div class="card">
+          <div class="card-body product-box">
+            <div class="img-wrapper">
+              <div class="lable-block">
+                <span class="lable3" *ngIf="product.tag == 'new'">new</span>
+                <span class="lable4" *ngIf="product.sale == 'on sale'"
+                  >on sale</span
+                >
+              </div>
+              <div class="front">
+                <a href="javascript:void(0)">
+                  <img
+                    *ngIf="
+                      product.images[0] &&
+                      product.images[0].imageName &&
+                      product.images[0].imageLocation
+                    "
+                    [src]="serverAddress +
+                      product.images[0].imageLocation +
+                      '/' +
+                      product.images[0].imageName
+                    "
+                    class="img-fluid blur-up lazyload bg-img"
+                    alt=""
+                  />
+                  <img
+                    *ngIf="product.images[0] == null"
+                    src="assets/img/No_Image_Available.png"
+                    class="img-fluid blur-up lazyload bg-img"
+                    alt=""
+                  />
+                </a>
+
+                <div class="product-hover">
+                  <button
+                    class="btn btn-round btn-danger"
+                    type="button"
+                    data-original-title=""
+                    title=""
+                    (click)="restoreProduct(product._id)"
+                  >
+                    <i class="ft-rotate-ccw" style="color: 'white'"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="product-detail">
+              <div class="row">
+                <div class="col-8">
+                  <div class="rating">
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </div>
+                  <a href="javascript:void(0)">
+                    <h6>{{ product.name }}</h6>
+                  </a>
+                  <h4>
+                    {{ product.price }}
+                  </h4>
+                </div>
+                <div class="col-4">
+                  <span
+                    *ngIf="product.productStatus == 'Review'"
+                    class="badge badge-warning"
+                    >{{ product.productStatus }}</span
+                  >
+                  <span
+                    *ngIf="product.productStatus == 'Approved'"
+                    class="badge badge-success"
+                    >{{ product.productStatus }}</span
+                  >
+                  <span
+                    *ngIf="product.productStatus == 'Rejected'"
+                    class="badge badge-danger"
+                    >{{ product.productStatus }}</span
+                  >
+                  <ul class="color-variant">
+                    <li class="bg-light0"></li>
+                    <li class="bg-light1"></li>
+                    <li class="bg-light2"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="product_list?.length === 0">
+    <div class="row d-flex justify-content-center">
+      <img
+        class="no-product-found-img"
+        src="assets/img/product-list/no_product.png"
+        alt="No product found"
+      />
+    </div>
+    <div class="row d-flex justify-content-center">
+      <h1>No product found</h1>
+    </div>
+  </div>
+  <ngb-pagination
+    *ngIf="product_list?.length != 0"
+    class="d-flex justify-content-end"
+    [collectionSize]="totalItems"
+    [(page)]="page"
+    (pageChange)="onPaginatorChange($event)"
+    [boundaryLinks]="true"
+    [pageSize]="itemsPerPage"
+  >
+  </ngb-pagination>
+</div>

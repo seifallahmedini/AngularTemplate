@@ -1,0 +1,33 @@
+<div class="form-group row">
+  <label class="col-md-3 label-control" [for]="name">
+    {{ label }}
+    <span class="required-input" *ngIf="isRequired()">*</span>
+  </label>
+  <div class="col-md-9">
+    <div class="custom-file" *ngIf="!isDetails">
+      <input
+        type="file"
+        [(ngModel)]="value"
+        class="custom-file-input"
+        [multiple]="multiple"
+        [id]="name"
+        [name]="name"
+        [ngClass]="{
+          'is-invalid': isSubmitted && getErrors()
+        }"
+        [attr.disabled]="isDisabled ? '' : null"
+        (change)="handleFileInput($event.target.files)"
+        (ngModelChange)="onValueChange($event)"
+      />
+      <label class="custom-file-label">{{
+        displayedNames ? displayedNames : placeholder
+      }}</label>
+    </div>
+    <img *ngFor="let url of urlFile" [src]="urlFile" class="img-thumbnail" />
+    <app-validatio-form
+      [isSubmitted]="isSubmitted"
+      [formControlValue]="formControlValue"
+    >
+    </app-validatio-form>
+  </div>
+</div>
